@@ -120,7 +120,7 @@ while True:
         d3 = dt_string = now.strftime("%d_%m_%Y_%H_%M_%S")
         with open(d3+'.csv', 'w', newline='') as f:
             thewriter = csv.writer(f)
-            thewriter.writerow(['Gaze direction', 'Time'])
+            thewriter.writerow(['Gaze direction:', 'Time (s):'])
             thewriter.writerow(['Left', time_left])
             thewriter.writerow(['Right', time_right])
             thewriter.writerow(['Center', time_center])
