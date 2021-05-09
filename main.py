@@ -105,7 +105,6 @@ while True:
             cv2.putText(frame, "CENTER", (x-100, y), font, 1, (0, 0, 255), 2)
             end2 = timer()
             time_center += (end2 - start2) * 1000
-            print(time_center)
         else:
             start3 = timer()
             new_frame[:] = (255, 0, 0)
