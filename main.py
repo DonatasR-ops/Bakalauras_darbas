@@ -16,12 +16,12 @@ time_right = 0
 time_center = 0
 time_left = 0
 
+gaze_left = 0.7
+gaze_right = 2
+
+
 def nothing(x):
     print(x)
-
-
-def midpoint(p1, p2):
-    return int((p1.x + p2.x) / 2), int((p1.y + p2.y) / 2)
 
 
 def get_gaze_ratio(eye_points, facial_landmarks):
@@ -67,6 +67,9 @@ cv2.namedWindow('Frame')
 cv2.createTrackbar('L', 'Frame', 0, 100, nothing)
 cv2.createTrackbar('R', 'Frame', 150, 300, nothing)
 
+cv2.setTrackbarPos('L', 'Frame', 70)
+cv2.setTrackbarPos('R', 'Frame', 200)
+
 while True:
     _, frame = capture.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -86,30 +89,36 @@ while True:
         gaze_ratio_left_eye = get_gaze_ratio([36, 37, 38, 39, 40, 41], landmarks)
         gaze_ratio_right_eye = get_gaze_ratio([42, 43, 44, 45, 46, 47], landmarks)
         gaze_ratio = (gaze_ratio_right_eye + gaze_ratio_left_eye) / 2
-        # print(gaze_ratio)
-        # cv2.putText(frame, str(gaze_ratio), (50, 100), font, 2, (0, 0, 255), 3)
+
+        gaze_left = cv2.getTrackbarPos('L', 'Frame') / 100
+        gaze_right = cv2.getTrackbarPos('R', 'Frame') / 100
+
         new_frame = np.zeros((500, 500, 3), np.uint8)
-        if gaze_ratio <= 0.7:
+        if gaze_ratio <= gaze_left:
+            start1 = timer()
             cv2.putText(frame, "RIGHT", (x-100, y), font, 1, (0, 0, 255), 2)
             new_frame[:] = (0, 0, 255)
-            end = timer()
-            time_right += end - start
-            print(time_right)
-        elif 0.7 < gaze_ratio < 2 :
-            start = timer()
+            end1 = timer()
+            time_right += (end1 - start1) * 1000
+        elif gaze_left < gaze_ratio < gaze_right:
+            start2 = timer()
             cv2.putText(frame, "CENTER", (x-100, y), font, 1, (0, 0, 255), 2)
-            end = timer()
-            time_right += end - start
+            end2 = timer()
+            time_center += (end2 - start2) * 1000
+            print(time_center)
         else:
+            start3 = timer()
             new_frame[:] = (255, 0, 0)
             cv2.putText(frame, "LEFT", (x-100, y), font, 1, (0, 0, 255), 2)
+            end3 = timer()
+            time_left += (end3 - start3) * 1000
 
     cv2.imshow("Frame", frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         now = datetime.now()
         d3 = dt_string = now.strftime("%d_%m_%Y_%H_%M_%S")
-        with open(d3+'.csv', 'w', newline = '') as f:
+        with open(d3+'.csv', 'w', newline='') as f:
             thewriter = csv.writer(f)
             thewriter.writerow(['Gaze direction', 'Time'])
             thewriter.writerow(['Left', time_left])
