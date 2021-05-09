@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import dlib
 import csv
-from timeit import default_timer as timer
+import time
 from datetime import datetime
 
 capture = cv2.VideoCapture(0)
@@ -21,7 +21,7 @@ gaze_right = 2
 
 
 def nothing(x):
-    print(x)
+    print()
 
 
 def get_gaze_ratio(eye_points, facial_landmarks):
@@ -94,24 +94,23 @@ while True:
         gaze_right = cv2.getTrackbarPos('R', 'Frame') / 100
 
         new_frame = np.zeros((500, 500, 3), np.uint8)
+        start = time.time()
         if gaze_ratio <= gaze_left:
-            start1 = timer()
             cv2.putText(frame, "RIGHT", (x-100, y), font, 1, (0, 0, 255), 2)
             new_frame[:] = (0, 0, 255)
-            end1 = timer()
-            time_right += (end1 - start1) * 1000
+            end1 = time.time()
+            time_right += (end1 - start) * 100
         elif gaze_left < gaze_ratio < gaze_right:
-            start2 = timer()
             cv2.putText(frame, "CENTER", (x-100, y), font, 1, (0, 0, 255), 2)
-            end2 = timer()
-            time_center += (end2 - start2) * 1000
+            end2 = time.time()
+            time_center += (end2 - start) * 1000
         else:
-            start3 = timer()
             new_frame[:] = (255, 0, 0)
             cv2.putText(frame, "LEFT", (x-100, y), font, 1, (0, 0, 255), 2)
-            end3 = timer()
-            time_left += (end3 - start3) * 1000
+            end3 = time.time()
+            time_left += (end3 - start) * 100
 
+    print([time_right, time_center, time_left])
     cv2.imshow("Frame", frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
