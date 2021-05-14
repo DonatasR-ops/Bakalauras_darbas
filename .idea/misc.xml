@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/09_05_2021_16_44_48.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_16_45_40.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_18_23_01.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_18_24_21.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_18_27_24.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_18_32_39.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_18_34_40.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_18_35_54.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_18_36_44.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_18_41_05.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_18_42_51.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_18_52_13.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_18_57_19.csv" />
+    <file url="file://$PROJECT_DIR$/09_05_2021_19_04_20.csv" />
+  </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (Bakalauras_darbas)" project-jdk-type="Python SDK" />
 </project>
