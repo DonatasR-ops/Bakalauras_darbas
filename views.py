@@ -136,13 +136,13 @@ def gaze_analyse():
             flash('Analysing...')
             filename = secure_filename(file.filename)
             if filename.endswith('.mp4'):
-                if analyse_video(filename) == 'Low':
-                    flash('Studen cheating risk: ' + analyse_video(filename))
+                if analyse_video(os.path.abspath(filename)) == 'Low':
+                    flash('Student cheating risk: ' + analyse_video(os.path.abspath(filename)))
                 else:
-                    flash('Studen cheating risk: ' + analyse_video(filename), "error")
+                    flash('Student cheating risk: ' + analyse_video(os.path.abspath(filename)), "error")
             elif filename.endswith('.csv'):
-                if analyse_csv(filename) == 'Low':
-                    flash('Studen cheating risk: ' + analyse_csv(filename))
+                if analyse_csv(os.path.abspath(filename)) == 'Low':
+                    flash('Student cheating risk: ' + analyse_csv(os.path.abspath(filename)))
                 else:
-                    flash('Studen cheating risk: ' + analyse_csv(filename), "error")
+                    flash('Student cheating risk: ' + analyse_csv(os.path.abspath(filename)), "error")
     return render_template("gaze_analyse.html", user=current_user)
