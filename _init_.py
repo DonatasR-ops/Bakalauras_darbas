@@ -5,13 +5,17 @@ from os import path
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
+UPLOAD_FOLDER = '/uploads'
+ALLOWED_EXTENSIONS = {'csv', 'mp4'}
+app = Flask(__name__)
 
 
 def create_app():
-    app = Flask(__name__)
     app.config['SECRET_KEY'] = 'asdasdsad asdad'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
+
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     from views import views
     from authy import auth

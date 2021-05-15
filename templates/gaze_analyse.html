@@ -1,6 +1,30 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}
 
 {% block content %}
-<h1>The template Element</h1>
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+      <h1>Analyse a file (.csv or .mp4 format)</h1>
+      <hr>
+
+      <form action="/gaze-analyse" method="POST" enctype="multipart/form-data">
+
+        <div class="form-group">
+          <label>Select a file</label>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" name="file" id="file">
+            <label class="custom-file-label" for="file">Select a file...</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Analyse</button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 

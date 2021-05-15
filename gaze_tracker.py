@@ -170,18 +170,10 @@ def analyse_video(filename):
                     end3 = time.time()
                     time_left += (end3 - start) * 100
         else:
-            now = datetime.now()
-            d3 = dt_string = now.strftime("Cap_%d_%m_%Y_%H_%M_%S")
-            with open(d3 + '.csv', 'w', newline='') as f:
-                thewriter = csv.writer(f)
-                thewriter.writerow(['Gaze direction:', 'Time (s):'])
-                thewriter.writerow(['Left', time_left])
-                thewriter.writerow(['Right', time_right])
-                thewriter.writerow(['Center', time_center])
-                break
+            return 2
 
 
-analyse_video('WIN_20210513_15_54_28_Pro.mp4')
+# analyse_video('WIN_20210513_15_54_28_Pro.mp4')
 
 # https://www.pyimagesearch.com/2017/02/06/faster-video-file-fps-with-cv2-videocapture-and-opencv/
 # faster video reading
