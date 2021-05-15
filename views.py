@@ -133,7 +133,16 @@ def gaze_analyse():
             flash('Wrong file format', "error")
             return redirect(request.url)
         if file and allowed_file(file.filename):
+            flash('Analysing...')
             filename = secure_filename(file.filename)
-            analyse_video(filename)
-            print(analyse_video(filename))
+            if filename.endswith('.mp4'):
+                if analyse_video(filename) == 'Low':
+                    flash('Studen cheating risk: ' + analyse_video(filename))
+                else:
+                    flash('Studen cheating risk: ' + analyse_video(filename), "error")
+            elif filename.endswith('.csv'):
+                if analyse_csv(filename) == 'Low':
+                    flash('Studen cheating risk: ' + analyse_csv(filename))
+                else:
+                    flash('Studen cheating risk: ' + analyse_csv(filename), "error")
     return render_template("gaze_analyse.html", user=current_user)

@@ -154,7 +154,6 @@ def analyse_video(filename):
                 gaze_ratio = (gaze_ratio_right_eye + gaze_ratio_left_eye) / 2
                 new_frame = np.zeros((500, 500, 3), np.uint8)
                 start = time.time()
-                print(gaze_ratio)
                 if gaze_ratio >= gaze_right:
                     cv2.putText(frame, "LEFT", (x - 100, y), font, 1, (0, 0, 255), 2)
                     new_frame[:] = (0, 0, 255)
@@ -170,10 +169,20 @@ def analyse_video(filename):
                     end3 = time.time()
                     time_left += (end3 - start) * 100
         else:
-            return 2
+            value = time_center / (time_right+time_left+time_center)
+            if value > 0.6:
+                return 'Low'
+            else:
+                return 'High'
 
-
-# analyse_video('WIN_20210513_15_54_28_Pro.mp4')
-
-# https://www.pyimagesearch.com/2017/02/06/faster-video-file-fps-with-cv2-videocapture-and-opencv/
-# faster video reading
+def analyse_csv(filename):
+    n = []
+    with open(filename, 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            n.append(row[1])
+    value = float(n[3]) / (float(n[1])+float(n[2])+float(n[3]))
+    if value > 0.6:
+        return 'Low'
+    else:
+        return 'High'
